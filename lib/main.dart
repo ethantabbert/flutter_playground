@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_playground/sidebar.dart';
+import 'package:flutter_playground/widgets/bottom_navbar.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: MyHomePage(),
+      home: MainView(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class MainView extends StatefulWidget {
+  const MainView({super.key});
 
   @override
-  MyHomePageState createState() => MyHomePageState();
+  MainViewState createState() => MainViewState();
 }
 
-class MyHomePageState extends State<MyHomePage> {
+class MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
-    return const Sidebar();
+    return const BottomNavbar();
   }
 }

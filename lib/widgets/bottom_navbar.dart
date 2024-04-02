@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Sidebar extends StatefulWidget {
-  const Sidebar({super.key});
+class BottomNavbar extends StatefulWidget {
+  const BottomNavbar({super.key});
 
   @override
-  SidebarState createState() => SidebarState();
+  BottomNavbarState createState() => BottomNavbarState();
 }
 
-class SidebarState extends State<Sidebar> with SingleTickerProviderStateMixin {
+class BottomNavbarState extends State<BottomNavbar>
+    with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   bool isExtended = false;
   late AnimationController controller;
