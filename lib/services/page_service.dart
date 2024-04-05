@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import "package:flutter_playground/pages/test_page_1.dart";
-import "package:flutter_playground/pages/test_page_2.dart";
-import "package:flutter_playground/pages/test_page_3.dart";
-import "package:flutter_playground/pages/test_page_4.dart";
+import "package:flutter_playground/pages/test-pages/test_page_1.dart";
+import "package:flutter_playground/pages/test-pages/test_page_2.dart";
+import "package:flutter_playground/pages/test-pages/test_page_3.dart";
+import "package:flutter_playground/pages/test-pages/test_page_4.dart";
 
 class PageService {
   late int pageIndex = 0;

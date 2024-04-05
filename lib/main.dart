@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/services/page_service.dart';
 import 'package:flutter_playground/services/register_service.dart';
-import 'package:flutter_playground/widgets/nav-bars/bottom_navbar.dart';
-import 'package:flutter_playground/widgets/page_view.dart';
+import 'package:flutter_playground/widgets/nav-bar/bottom_navbar.dart';
+import 'package:flutter_playground/widgets/page-view/page_view.dart';
 
 void main() {
   registerServices();
