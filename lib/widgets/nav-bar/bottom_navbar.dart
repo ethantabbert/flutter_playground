@@ -54,6 +54,7 @@ class BottomNavbarState extends State<BottomNavbar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: widget.pageService.pageIndex,
+      iconSize: 30,
       selectedItemColor: Colors.red,
       unselectedItemColor: Colors.grey,
       onTap: _onTap,
