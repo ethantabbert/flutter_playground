@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_playground/services/page_service.dart';
 import 'package:flutter_playground/services/register_service.dart';
-import 'package:flutter_playground/widgets/nav-bars/side_navbar.dart';
+import 'package:flutter_playground/widgets/nav-bars/bottom_navbar.dart';
+import 'package:flutter_playground/widgets/page_view.dart';
 
 void main() {
   registerServices();
@@ -28,20 +29,25 @@ class MainView extends StatefulWidget {
 
 class MainViewState extends State<MainView> {
   final _pageController = singleton<PageController>();
-  final _page = PageService();
+  final _pageService = singleton<PageService>();
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        PageView(
-          controller: _pageController,
-          allowImplicitScrolling: false,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [_page.testPage1, _page.testPage2],
-        ),
-        const SideNavbar()
-      ],
+    return Scaffold(
+      body: CustomPageView(
+          pageController: _pageController, pageService: _pageService),
+      bottomNavigationBar: BottomNavbar(
+        pageController: _pageController,
+        pageService: _pageService,
+      ),
     );
   }
 }

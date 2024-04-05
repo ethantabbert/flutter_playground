@@ -1,94 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/services/page_service.dart';
 
 class BottomNavbar extends StatefulWidget {
-  const BottomNavbar({super.key});
+  const BottomNavbar({
+    super.key,
+    required this.pageController,
+    required this.pageService,
+  });
+
+  final PageController pageController;
+  final PageService pageService;
+
+  List<BottomNavigationBarItem> get pages => const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+        BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle), label: "Profile"),
+      ];
 
   @override
   BottomNavbarState createState() => BottomNavbarState();
 }
 
-class BottomNavbarState extends State<BottomNavbar>
-    with SingleTickerProviderStateMixin {
-  int _selectedIndex = 0;
-  bool isExtended = false;
-  late AnimationController controller;
-  late Animation<double> animation;
-
+class BottomNavbarState extends State<BottomNavbar> {
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    animation = Tween<double>(begin: 1.0, end: 0.0).animate(controller);
+    widget.pageController.addListener(_pageListener);
   }
 
-  void _onTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  void _toggleBar() {
-    setState(() {
-      isExtended = !isExtended;
-    });
-    if (isExtended) {
-      controller.forward();
-    } else {
-      controller.reverse();
+  void _pageListener() {
+    final int currentPage = widget.pageController.page!.round();
+    if (currentPage != widget.pageService.pageIndex) {
+      setState(() {
+        widget.pageService.pageIndex = currentPage;
+      });
     }
   }
 
   @override
+  void dispose() {
+    widget.pageController.removeListener(_pageListener);
+    super.dispose();
+  }
+
+  void _onTap(int index) {
+    widget.pageController.jumpToPage(index);
+    widget.pageService.pageIndex = index;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-        bottomNavigationBar: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-              onPressed: () => _toggleBar(),
-              icon: AnimatedIcon(
-                icon: AnimatedIcons.close_menu,
-                progress: animation,
-              ),
-            ),
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-              height: isExtended ? (screenHeight / 8) : 0,
-              alignment: Alignment.center,
-              child: BottomAppBar(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.home),
-                      onPressed: () => _onTap(0),
-                      color: _selectedIndex == 0 ? Colors.blue : Colors.grey,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.search),
-                      onPressed: () => _onTap(1),
-                      color: _selectedIndex == 1 ? Colors.blue : Colors.grey,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.notifications),
-                      onPressed: () => _onTap(2),
-                      color: _selectedIndex == 2 ? Colors.blue : Colors.grey,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.account_circle),
-                      onPressed: () => _onTap(3),
-                      color: _selectedIndex == 3 ? Colors.blue : Colors.grey,
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ));
+    return BottomNavigationBar(
+      currentIndex: widget.pageService.pageIndex,
+      selectedItemColor: Colors.red,
+      unselectedItemColor: Colors.grey,
+      onTap: _onTap,
+      items: widget.pages,
+    );
   }
 }
