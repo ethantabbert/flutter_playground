@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/custom_theme.dart';
 import 'package:flutter_playground/services/page_service.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -55,7 +56,7 @@ class BottomNavbarState extends State<BottomNavbar> {
     return BottomNavigationBar(
       currentIndex: widget.pageService.pageIndex,
       iconSize: 30,
-      selectedItemColor: Colors.red,
+      selectedItemColor: CustomPalette.primaryAccent,
       unselectedItemColor: Colors.grey,
       onTap: _onTap,
       items: widget.pages,

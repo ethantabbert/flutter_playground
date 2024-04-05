@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/custom_theme.dart';
 import 'package:flutter_playground/services/page_service.dart';
 import 'package:flutter_playground/services/register_service.dart';
 import 'package:flutter_playground/widgets/nav-bar/bottom_navbar.dart';
@@ -14,8 +15,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MainView(),
+    return MaterialApp(
+      title: "Flutter Playground",
+      theme: customTheme.data,
+      home: const MainView(),
     );
   }
 }
